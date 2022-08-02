@@ -1,9 +1,16 @@
 package com.revature;
 
+import com.revature.controller.RegistrationController;
+
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	
+		System.out.println("Hello! Welcome to the online banking system.");
+		
+		RegistrationController rCont = new RegistrationController();
+		
+		rCont.register();
 
 	}
 
