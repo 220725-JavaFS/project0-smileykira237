@@ -13,7 +13,7 @@ public class RegistrationController {
 	//Registers new user for a bank account
 	public void register() {
 		
-		System.out.println("In order for you to register for a new account, I need some information first. ");
+		System.out.println("In order for you to register for a new checking account, I need some information first. ");
 		System.out.print("What is your name?");
 		
 		String name = scanner.nextLine();
@@ -28,7 +28,7 @@ public class RegistrationController {
 		
 		String password = scanner.nextLine();
 		
-		System.out.println("Thank you " + name + ", your account set-up is complete.");
+		System.out.println("Thank you " + name + ", your checking account set-up is complete.");
 		System.out.println("Your account details are as follows: ");
 		System.out.println("UserName: " + userName);
 		System.out.println("Password: " + password);
