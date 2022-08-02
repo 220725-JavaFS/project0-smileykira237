@@ -19,7 +19,6 @@ public class AccountHolder {
 
 	public AccountHolder() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 

@@ -2,10 +2,15 @@ package com.revature.controller;
 
 import java.util.*;
 
+import com.revature.models.AccountHolder;
+import com.revature.service.AccountHolderService;
+
 public class RegistrationController {
 
-	Scanner scanner = new Scanner(System.in);
+	private Scanner scanner = new Scanner(System.in);
+	private AccountHolderService accountServ = new AccountHolderService();
 	
+	//Registers new user for a bank account
 	public void register() {
 		
 		System.out.println("In order for you to register for a new account, I need some information first. ");
@@ -28,6 +33,7 @@ public class RegistrationController {
 		System.out.println("UserName: " + userName);
 		System.out.println("Password: " + password);
 		System.out.println("Please keep this information somewhere safe.");
-		
 	}
+	
+	
 }
