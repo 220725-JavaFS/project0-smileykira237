@@ -10,7 +10,7 @@ public class Main {
 		
 		MenuController mCont = new MenuController();
 		
-		mCont.startMenu();
+		mCont.menu();
 	}
 
 }

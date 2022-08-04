@@ -20,9 +20,9 @@ public class OpenAcctController {
 		
 		switch (selection) {
 	
-		case 1: aServ.openAcctService();
+		case 1: aServ.openAcctChecking();
 			break;
-		case 2:
+		case 2: aServ.openAcctSavings();
 			break;
 		default: System.out.println("Error: Selection Invalid!");
 			break;

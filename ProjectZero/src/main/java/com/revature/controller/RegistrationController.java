@@ -36,8 +36,6 @@ public class RegistrationController {
 		System.out.println("UserName: " + userName);
 		System.out.println("Password: " + password);
 		System.out.println("Please keep this information somewhere safe.\n");
-		
-		scanner.close();
 	}
 	
 }

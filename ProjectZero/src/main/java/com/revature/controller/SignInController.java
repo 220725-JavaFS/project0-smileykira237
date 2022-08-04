@@ -8,7 +8,7 @@ public class SignInController {
 	
 	 public void signIn() {
 		 
-		 System.out.println("Sign-in Hub\n" + "\n" + "Please enter username: ");
+		 System.out.println("\nSign-in Hub\n" + "\n" + "Please enter username: ");
 		 String userName = scanner.nextLine().trim();
 		 
 		 System.out.println("\nThank you, " + userName + ". Enter password: ");
