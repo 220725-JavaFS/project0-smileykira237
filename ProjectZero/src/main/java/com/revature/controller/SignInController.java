@@ -5,7 +5,6 @@ import java.util.*;
 public class SignInController {
 	
 	Scanner scanner = new Scanner(System.in);
-	MenuController mCont = new MenuController();
 	
 	 public void signIn() {
 		 
@@ -17,7 +16,6 @@ public class SignInController {
 		 password = "******";
 		 
 		 System.out.println("\nWelcome, " + userName);
-		 mCont.mainMenu();
 	 }
 
 }

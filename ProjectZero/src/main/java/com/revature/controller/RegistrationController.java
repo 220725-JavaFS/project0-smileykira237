@@ -9,7 +9,6 @@ public class RegistrationController {
 
 	private Scanner scanner = new Scanner(System.in);
 	private AccountHolderService accountServ = new AccountHolderService();
-	private SignInController rsCont = new SignInController();
 	
 	//Registers new user for a bank account
 	public void register() {
@@ -38,8 +37,7 @@ public class RegistrationController {
 		System.out.println("Password: " + password);
 		System.out.println("Please keep this information somewhere safe.\n");
 		
-		rsCont.signIn();
+		scanner.close();
 	}
-	
 	
 }

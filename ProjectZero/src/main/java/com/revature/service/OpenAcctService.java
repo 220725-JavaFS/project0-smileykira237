@@ -9,7 +9,6 @@ public class OpenAcctService {
 	private Scanner scanner = new Scanner(System.in);
 	private double acctBalance = 5.00;
 	private boolean hasDebitCard = true;
-	MenuController mCont = new MenuController();
 	
 	public void openAcctService() {
 		
@@ -43,15 +42,7 @@ public class OpenAcctService {
 		switch (selection) {
 		case 1: System.out.println("");
 			break;
-		case 2: System.out.println("I'm sorry, we cannot open an account for you at this time. Would you like "
-				+ "to return to main menu?\n" + "\n1) Yes" + "\n2) No");
-		int nextSelection = scanner.nextInt();
-		switch (nextSelection) {
-		case 1: mCont.mainMenu();
-			break;
-		case 2: System.out.println("Now exiting online banking system ... Goodbye.");
-			break;
-		}
+		case 2: System.out.println("I'm sorry, we cannot open an account for you at this time. Goodbye.");
 			break;
 		default: System.out.println("Error: Selection Invalid!");
 			break;
@@ -72,15 +63,4 @@ public class OpenAcctService {
 //System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
 //+ phoneNumber);
 
-//System.out.println("There is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
-//System.out.println("\n1) Yes" + "\n2)No");
-	//int nextSelection = scanner.nextInt();
-	//switch (nextSelection) {
-	//case 1: System.out.println("");
-		//break;
-	//case 2:
-		//break;
-	//default: System.out.println("Error: Selection Invalid!");
-			//break;
-//	}
 	
