@@ -1,19 +1,19 @@
 package com.revature.controller;
 
-import java.util.*;
+import java.util.Scanner;
 
 public class MenuController {
 	
 	RegistrationController rCont = new RegistrationController();
-	
 	SignInController sCont = new SignInController();
+	OpenAcctController aCont = new OpenAcctController();
+	Scanner scanner = new Scanner(System.in);
 	
 	//Display menu options to user
-	public void menu() {
+	public void startMenu() {
 		System.out.println("Please choose from the following menu options: ");
 		System.out.println("1) Register\n" + "2) Sign in\n" + "3) Exit"); 
 		
-		Scanner scanner = new Scanner(System.in);
 		int selection = scanner.nextInt();
 		
 		switch (selection){
@@ -26,8 +26,10 @@ public class MenuController {
 				break;
 			default: System.out.println("Error: Selection Invalid!");
 				break;
-		}
+				}
+	}
 		
+		public void mainMenu() {
 		 System.out.println("\nTransaction Menu\n" + "\n" + "Please make a selection below:");
 		 System.out.println("1) Open New Account\n" + "2) Account Status\n" + "3) Deposit\n" + 
 		 "4) Withdrawal\n" + "5) Funds Transfer\n" + "6) Logout");
@@ -36,7 +38,7 @@ public class MenuController {
 		 
 		 switch(nextSelection) {
 		 
-		 case 1: 
+		 case 1: aCont.openNewAcct();
 			 break;
 		 case 2:
 			 break;
