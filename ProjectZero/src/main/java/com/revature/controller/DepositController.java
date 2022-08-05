@@ -1,13 +1,13 @@
 package com.revature.controller;
 
-import java.util.Scanner;
+import java.util.*;
 
 import com.revature.service.DepositService;
 
 public class DepositController {
 	
 	private Scanner scanner = new Scanner(System.in);
-	DepositService dServ = new DepositService();
+	private DepositService dServ = new DepositService();
 	
 	public void AcctDeposit() {
 		

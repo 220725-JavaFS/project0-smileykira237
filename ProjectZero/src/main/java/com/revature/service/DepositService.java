@@ -5,41 +5,63 @@ import java.util.*;
 public class DepositService {
 	
 	private Scanner scanner = new Scanner(System.in);
-	OpenAcctService oServ = new OpenAcctService();
+	 OpenAcctService dOServ = new OpenAcctService();
 
-	public void depositChecking() {
+	public double depositChecking() {
+		
+		dOServ.setcAcctBalance(5.0);
 	
 		System.out.println("\nHow much would you like to deposit: ");
 		try {
 		String cDeposit = scanner.next().trim();
 		double deposit = Double.valueOf(cDeposit);
 		
-		double total = oServ.getcAcctBalance() + deposit;
-		oServ.setcAcctBalance(total);
+		//checker for negative numbers
+		while(deposit < 0) {
+			System.out.println("\nError: Cannot deposit a negative amount."
+					+ "\nPlease enter an alternate value: ");
+			cDeposit = scanner.next().trim();
+			deposit = Double.valueOf(cDeposit);
+		}
 		
-		System.out.println("\nYour deposit is complete." + "\nChecking Account Balance: $" + oServ.getcAcctBalance() + "0");
+		double total = dOServ.getcAcctBalance() + deposit;
+		dOServ.setcAcctBalance(total);
+		
+		System.out.println("\nYour deposit is complete." + "\nChecking Account Balance: $" + dOServ.getcAcctBalance() + "0");
 		}catch(NumberFormatException e) {
 			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
 
 			System.out.println("Rerouting to main menu ...");
 		}
+		return dOServ.getcAcctBalance();
 	}
 	
-	public void depositSavings() {
+	public double depositSavings() {
+		
+		dOServ.setsAcctBalance(5.0);
 		
 		System.out.println("\nHow much would you like to deposit: ");
 		try {
 		String sDeposit = scanner.next().trim();
 		double deposit = Double.valueOf(sDeposit);
 		
-		double total = oServ.getsAcctBalance() + deposit;
-		oServ.setsAcctBalance(total);
+		//checker for negative numbers
+		while(deposit < 0) {
+			System.out.println("\nError: Cannot deposit a negative amount."
+					+ "\nPlease enter an alternate value: ");
+			sDeposit = scanner.next().trim();
+			deposit = Double.valueOf(sDeposit);
+		}
 		
-		System.out.println("\nYour deposit is complete." + "\nSavings Account Balance: $" + oServ.getsAcctBalance() + "0");
+		double total = dOServ.getsAcctBalance() + deposit;
+		dOServ.setsAcctBalance(total);
+		
+		System.out.println("\nYour deposit is complete." + "\nSavings Account Balance: $" + dOServ.getsAcctBalance() + "0");
 		}catch(NumberFormatException e) {
 			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
 
 			System.out.println("Rerouting to main menu ...");
 		}
+		return dOServ.getcAcctBalance();
 }
 }

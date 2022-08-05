@@ -2,13 +2,9 @@ package com.revature.controller;
 
 import java.util.*;
 
-import com.revature.models.AccountHolder;
-import com.revature.service.AccountHolderService;
-
 public class RegistrationController {
 
 	private Scanner scanner = new Scanner(System.in);
-	private AccountHolderService accountServ = new AccountHolderService();
 	
 	//Registers new user for a bank account
 	public void register() {

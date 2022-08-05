@@ -5,8 +5,8 @@ import java.util.*;
 public class OpenAcctService {
 
 	private Scanner scanner = new Scanner(System.in);
-	private double cAcctBalance = 5.00;
-	private double sAcctBalance = 5.00;
+	private double cAcctBalance;
+	private double sAcctBalance;
 	private boolean hasDebitCard;
 	
 	public void openAcctChecking() {

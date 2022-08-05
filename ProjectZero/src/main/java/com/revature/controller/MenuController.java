@@ -4,18 +4,18 @@ import java.util.*;
 
 public class MenuController {
 	
-	RegistrationController rCont = new RegistrationController();
-	SignInController sCont = new SignInController();
-	OpenAcctController aCont = new OpenAcctController();
-	DepositController dCont = new DepositController();
-	Scanner scanner = new Scanner(System.in);
+	private RegistrationController rCont = new RegistrationController();
+	private SignInController sCont = new SignInController();
+	private OpenAcctController aCont = new OpenAcctController();
+	private DepositController dCont = new DepositController();
+	private WithdrawalController wCont = new WithdrawalController();
+	private Scanner scanner = new Scanner(System.in);
 	
 	//Display menu options to user
 	public boolean menu() {
 		System.out.println("Please choose from the following menu options: ");
 		System.out.println("1) Register\n" + "2) Sign in\n" + "3) Exit"); 
 
-		Scanner scanner = new Scanner(System.in);
 		String selection = scanner.next().trim();
 		
 		switch (selection){
@@ -45,7 +45,7 @@ public class MenuController {
 			 break;
 		 case "3": dCont.AcctDeposit();
 			 break;
-		 case "4":
+		 case "4": wCont.AcctWithdrawal();
 			 break;
 		 case "5":
 			 break;
