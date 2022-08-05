@@ -2,12 +2,11 @@ package com.revature.service;
 
 import java.util.*;
 
-import com.revature.controller.MenuController;
-
 public class OpenAcctService {
 
 	private Scanner scanner = new Scanner(System.in);
-	private double acctBalance = 5.00;
+	private double cAcctBalance = 5.00;
+	private double sAcctBalance = 5.00;
 	private boolean hasDebitCard;
 	
 	public void openAcctChecking() {
@@ -35,26 +34,26 @@ public class OpenAcctService {
 					+ "the area code:");
 			phoneNumber = scanner.nextLong();
 		}
-		
+
 		System.out.println("\nThere is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
 		System.out.println("\n1) Yes" + "\n2) No");
 		
-		int selection = scanner.nextInt();
+		String selection = scanner.next().trim();
 		
 		switch (selection) {
-		case 1: System.out.println("Thank you, your account information is as follows:\n");
+		case "1": System.out.println("Thank you, your account information is as follows:\n");
 		System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-				+ phoneNumber + "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctBalance + "0");
+				+ phoneNumber + "\nAccount Opened: Checking" + "\nAccount Balance: $" + cAcctBalance + "0");
 		if(hasDebitCard == true) {
 			System.out.println("Your new debit card should be delivered to the address provided within"
 					+ "3-5 business days.");
 		}
 			break;
-		case 2: System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
+		case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
 			break;
-		default: System.out.println("Error: Selection Invalid!");
-			break;
+		default: System.out.println("Error: Selection Invalid. Rerouting ...");
 		}
+		
 	}
 	
 public void openAcctSavings() {
@@ -83,39 +82,43 @@ System.out.println("\nPlease fill in your contact information below:\n");
 			phoneNumber = scanner.nextLong();
 		}
 		
-		System.out.println("\nThere is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
+		System.out.println("\nThere is a $5.00 fee to open a new savings account. Do you still wish to proceed?");
 		System.out.println("\n1) Yes" + "\n2) No");
 		
-		int selection = scanner.nextInt();
+		String selection = scanner.next().trim();
 		
 		switch (selection) {
-		case 1: System.out.println("Thank you, your account information is as follows:\n");
+		case "1": System.out.println("Thank you, your account information is as follows:\n");
 		System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-				+ phoneNumber + "\nAccount Opened: Savings" + "\nAccount Balance: $" + acctBalance + "0");
+				+ phoneNumber + "\nAccount Opened: Savings" + "\nAccount Balance: $" + sAcctBalance + "0");
 		if(hasDebitCard == true) {
 			System.out.println("Your new debit card should be delivered to the address provided within"
 					+ "3-5 business days.");
 		}
 			break;
-		case 2: System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
+		case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
 			break;
-		default: System.out.println("Error: Selection Invalid!");
-			break;
+		default: System.out.println("\nError: Selection Invalid. Rerouting ...");
 		}
 	}
 
-	public double getAcctBalance() {
-		return acctBalance;
-	}
+public double getcAcctBalance() {
+	return cAcctBalance;
+}
 
-	public void setAcctBalance(double acctBalance) {
-		this.acctBalance = acctBalance;
-	}
+public void setcAcctBalance(double cAcctBalance) {
+	this.cAcctBalance = cAcctBalance;
+}
+
+public double getsAcctBalance() {
+	return sAcctBalance;
+}
+
+public void setsAcctBalance(double sAcctBalance) {
+	this.sAcctBalance = sAcctBalance;
+}
+
 	
 	
 	}
-//System.out.println("Thank you, your account information is as follows:\n");
-//System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-//+ phoneNumber + "\nAccount Opened: Checking" + "\nAccount Balance: " + acctBalance);
-
 	
