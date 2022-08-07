@@ -117,6 +117,14 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		String cDeposit = scanner.next().trim();
 		double deposit = Double.valueOf(cDeposit);
 		
+		//checker for periods
+				while (cDeposit.contains(".")) {
+					System.out.println("\nPlease ommit any periods you may have included and try again.\n" 
+				+ "How much would you like to deposit: ");
+					cDeposit = scanner.next().trim();
+					deposit = Double.valueOf(cDeposit);
+				}
+	
 		//checker for negative numbers
 		while(deposit < 0) {
 			System.out.println("\nError: Cannot deposit a negative amount."
@@ -130,7 +138,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		
 		System.out.println("\nYour deposit is complete." + "\nChecking Account Balance: $" + acctHolder.getcAcctBalance() + "0");
 		}catch(NumberFormatException e) {
-			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
+		System.out.println("\nError: Selection Invalid "+ e.getStackTrace() + "\n Try ommiting any commas or dollar signs you may have included.");
 
 			System.out.println("Rerouting to main menu ...");
 		}
@@ -143,6 +151,14 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		try {
 		String sDeposit = scanner.next().trim();
 		double deposit = Double.valueOf(sDeposit);
+		
+		//checker for common characters
+		while (sDeposit.contains(".")) {
+			System.out.println("\nPlease ommit any periods you may have included and try again.\n"  
+			+ "How much would you like to deposit: ");
+			sDeposit = scanner.next().trim();
+			deposit = Double.valueOf(sDeposit);
+		}
 		
 		//checker for negative numbers
 		while(deposit < 0) {
@@ -157,7 +173,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		
 		System.out.println("\nYour deposit is complete." + "\nSavings Account Balance: $" + acctHolder.getsAcctBalance() + "0");
 		}catch(NumberFormatException e) {
-			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
+		System.out.println("\nError: Selection Invalid "+ e.getStackTrace() + "\n Try ommiting any commas or dollar signs you may have included.");
 
 			System.out.println("Rerouting to main menu ...");
 		}
@@ -172,6 +188,13 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		String cWithdrawal = scanner.next().trim();
 		double withdrawal = Double.valueOf(cWithdrawal);
 		
+		//checker for common characters
+		while (cWithdrawal.contains(".")) {
+			System.out.println("\nPlease ommit any periods you may have included and try again.\n"  
+			+ "How much would you like to withdraw: ");
+			cWithdrawal = scanner.next().trim();
+			withdrawal = Double.valueOf(cWithdrawal);
+		}
 		//checker for insufficient funds
 		while(withdrawal > acctHolder.getcAcctBalance()) {
 			System.out.println("\nInsufficient Funds: You only have $" + acctHolder.getcAcctBalance() + "0 in your checking account."
@@ -193,7 +216,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		System.out.println("\nYour withdrawal is complete." + "\nChecking Account Balance: $" + acctHolder.getcAcctBalance() + "0");
 		
 		}catch(NumberFormatException e) {
-			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
+		System.out.println("\nError: Selection Invalid "+ e.getStackTrace() + "\n Try ommiting any commas or dollar signs you may have included.");
 
 			System.out.println("Rerouting to main menu ...");
 		}
@@ -208,6 +231,13 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		String sWithdrawal = scanner.next().trim();
 		double withdrawal = Double.valueOf(sWithdrawal);
 		
+		//checker for common characters
+		while (sWithdrawal.contains(".")) {
+			System.out.println("\nPlease ommit any periods you may have included and try again.\n"  
+		    + "How much would you like to withdraw: ");
+		    sWithdrawal = scanner.next().trim();
+			withdrawal = Double.valueOf(sWithdrawal);
+				}
 		//checker for insufficient funds
 		while(withdrawal > acctHolder.getsAcctBalance()) {
 			System.out.println("\nInsufficient Funds: You only have $" + acctHolder.getsAcctBalance() + "0 in your savings account."
@@ -229,7 +259,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		System.out.println("\nYour withdrawal is complete." + "\nSavings Account Balance: $" + acctHolder.getsAcctBalance() + "0");
 		
 		}catch(NumberFormatException e) {
-			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
+		System.out.println("\nError: Selection Invalid "+ e.getStackTrace() + "\n Try ommiting any commas or dollar signs you may have included.");
 
 			System.out.println("Rerouting to main menu ...");
 		}
@@ -241,22 +271,29 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		System.out.println("\nHow much would you like to transfer: ");
 		
 		try {
-		String sTransfer = scanner.next().trim();
-		double transfer = Double.valueOf(sTransfer);
+		String cTransfer = scanner.next().trim();
+		double transfer = Double.valueOf(cTransfer);
 		
+		//checker for common characters
+				while (cTransfer.contains(".")) {
+					System.out.println("\nPlease ommit any periods you may have included and try again.\n" 
+				 + "How much would you like to transfer: ");
+					cTransfer = scanner.next().trim();
+					transfer = Double.valueOf(cTransfer);
+				}
 		//checker for insufficient funds
 		while(transfer > acctHolder.getcAcctBalance()) {
 			System.out.println("\nInsufficient Funds: You only have $" + acctHolder.getcAcctBalance() + "0 in your checking account."
 					+ "\nPlease enter an alternate amount: ");
-			sTransfer = scanner.next().trim();
-			transfer = Double.valueOf(sTransfer);
+			cTransfer = scanner.next().trim();
+			transfer = Double.valueOf(cTransfer);
 		}
 		//checker for negative numbers
 				while(transfer < 0) {
 					System.out.println("\nError: Cannot transfer a negative amount."
 							+ "\nPlease enter an alternate value: ");
-					sTransfer = scanner.next().trim();
-					transfer = Double.valueOf(sTransfer);
+					cTransfer = scanner.next().trim();
+					transfer = Double.valueOf(cTransfer);
 				}
 		
 		double total = acctHolder.getcAcctBalance() - transfer;
@@ -268,7 +305,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 				+ "\nSavings Account Balance: $" + acctHolder.getsAcctBalance() + "0");
 		
 		}catch(NumberFormatException e) {
-			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
+		System.out.println("\nError: Selection Invalid "+ e.getStackTrace() + "\n Try ommiting any commas or dollar signs you may have included.");
 
 			System.out.println("Rerouting to main menu ...");
 		}
@@ -283,6 +320,13 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		String sTransfer = scanner.next().trim();
 		double transfer = Double.valueOf(sTransfer);
 		
+		//checker for common characters
+		while (sTransfer.contains(".")) {
+			System.out.println("\nPlease ommit any periods you may have included and try again.\n" 
+		 + "How much would you like to transfer: ");
+			sTransfer = scanner.next().trim();
+			transfer = Double.valueOf(sTransfer);
+		}
 		//checker for insufficient funds
 		while(transfer > acctHolder.getsAcctBalance()) {
 			System.out.println("\nInsufficient Funds: You only have $" + acctHolder.getsAcctBalance() + "0 in your savings account."
@@ -307,7 +351,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 				+ "\nChecking Account Balance: $" + acctHolder.getcAcctBalance() + "0");
 		
 		}catch(NumberFormatException e) {
-			System.out.println("\nError: Selection Invalid "+ e.getStackTrace());
+		System.out.println("\nError: Selection Invalid "+ e.getStackTrace() + "\n Try ommiting any commas or dollar signs you may have included.");
 
 			System.out.println("Rerouting to main menu ...");
 		}
