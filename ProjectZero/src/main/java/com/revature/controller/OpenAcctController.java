@@ -2,6 +2,7 @@ package com.revature.controller;
 
 import java.util.*;
 
+import com.revature.models.AccountHolder;
 import com.revature.service.OpenAcctService;
 
 public class OpenAcctController {
@@ -9,7 +10,7 @@ public class OpenAcctController {
 	private Scanner scanner = new Scanner(System.in);
 	OpenAcctService aServ = new OpenAcctService();
 	
-	public void openNewAcct() {
+	public AccountHolder openNewAcct(AccountHolder acctHolder) {
 		System.out.println("\nNew Account Hub\n" + "\nAlright, I'll need a bit more information from you first. "
 				+ "What type of account would you like to open?");
 		
@@ -19,12 +20,13 @@ public class OpenAcctController {
 		
 		switch (selection) {
 	
-		case "1": aServ.openAcctChecking();
+		case "1": acctHolder = aServ.openAcctChecking(acctHolder);
 			break;
-		case "2": aServ.openAcctSavings();
+		case "2": acctHolder = aServ.openAcctSavings(acctHolder);
 			break;
 		default: System.out.println("\nError: Selection Invalid. Rerouting ...");
 		}
+		return acctHolder;
 	}
 
 }

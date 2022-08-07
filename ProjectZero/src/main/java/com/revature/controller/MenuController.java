@@ -2,13 +2,18 @@ package com.revature.controller;
 
 import java.util.*;
 
+import com.revature.models.AccountHolder;
+
 public class MenuController {
 	
+	private AccountHolder acctHolder = new AccountHolder();
 	private RegistrationController rCont = new RegistrationController();
 	private SignInController sCont = new SignInController();
 	private OpenAcctController aCont = new OpenAcctController();
 	private DepositController dCont = new DepositController();
 	private WithdrawalController wCont = new WithdrawalController();
+	private AcctStatusController asCont = new AcctStatusController();
+	private TransferController tCont = new TransferController();
 	private Scanner scanner = new Scanner(System.in);
 	
 	//Display menu options to user
@@ -39,15 +44,15 @@ public class MenuController {
 		 
 		 switch(nextSelection) {
 
-		 case "1": aCont.openNewAcct();
+		 case "1": acctHolder = aCont.openNewAcct(acctHolder);
 		 	 break;
-		 case "2":
+		 case "2": acctHolder = asCont.AcctStatus(acctHolder);
 			 break;
-		 case "3": dCont.AcctDeposit();
+		 case "3": acctHolder = dCont.AcctDeposit(acctHolder);
 			 break;
-		 case "4": wCont.AcctWithdrawal();
+		 case "4": acctHolder = wCont.AcctWithdrawal(acctHolder);
 			 break;
-		 case "5":
+		 case "5": acctHolder = tCont.AcctTransfer(acctHolder);
 			 break;
 		 case "6": System.out.println("You've been logged out.");
 		 scanner.close();

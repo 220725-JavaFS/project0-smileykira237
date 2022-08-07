@@ -12,8 +12,9 @@ public class SignInController {
 		 String userName = scanner.nextLine().trim();
 		 
 		 System.out.println("\nThank you, " + userName + ". Enter password: ");
-		 String password = scanner.nextLine().trim();
-		 password = "******";
+		 
+		 @SuppressWarnings("unused")
+		String password = scanner.nextLine().trim();
 		 
 		 System.out.println("\nWelcome, " + userName);
 	 }

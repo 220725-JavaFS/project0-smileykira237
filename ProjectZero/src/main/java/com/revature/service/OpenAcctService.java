@@ -2,14 +2,26 @@ package com.revature.service;
 
 import java.util.*;
 
+import com.revature.models.AccountHolder;
+
 public class OpenAcctService {
 
 	private Scanner scanner = new Scanner(System.in);
-	private double cAcctBalance;
-	private double sAcctBalance;
 	private boolean hasDebitCard;
+	private AccountHolder acctHolder = new AccountHolder();
+	private double balancesTotal;
 	
-	public void openAcctChecking() {
+	public OpenAcctService(AccountHolder acctHolder) {
+		super();
+		this.acctHolder = acctHolder;
+		balancesTotal = acctHolder.getcAcctBalance() + acctHolder.getsAcctBalance();
+	}
+
+	public OpenAcctService() {
+		super();
+	}
+
+	public AccountHolder openAcctChecking(AccountHolder acctHolder) {
 		
 		hasDebitCard = true;
 		
@@ -43,7 +55,7 @@ public class OpenAcctService {
 		switch (selection) {
 		case "1": System.out.println("Thank you, your account information is as follows:\n");
 		System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-				+ phoneNumber + "\nAccount Opened: Checking" + "\nAccount Balance: $" + cAcctBalance + "0");
+				+ phoneNumber + "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctHolder.getcAcctBalance() + "0");
 		if(hasDebitCard == true) {
 			System.out.println("Your new debit card should be delivered to the address provided within"
 					+ "3-5 business days.");
@@ -53,10 +65,10 @@ public class OpenAcctService {
 			break;
 		default: System.out.println("Error: Selection Invalid. Rerouting ...");
 		}
-		
+		return acctHolder;
 	}
 	
-public void openAcctSavings() {
+public AccountHolder openAcctSavings(AccountHolder acctHolder) {
 		
 		hasDebitCard = false;
 		
@@ -90,7 +102,7 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		switch (selection) {
 		case "1": System.out.println("Thank you, your account information is as follows:\n");
 		System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-				+ phoneNumber + "\nAccount Opened: Savings" + "\nAccount Balance: $" + sAcctBalance + "0");
+				+ phoneNumber + "\nAccount Opened: Savings" + "\nAccount Balance: $" + acctHolder.getsAcctBalance() + "0");
 		if(hasDebitCard == true) {
 			System.out.println("Your new debit card should be delivered to the address provided within"
 					+ "3-5 business days.");
@@ -100,25 +112,16 @@ System.out.println("\nPlease fill in your contact information below:\n");
 			break;
 		default: System.out.println("\nError: Selection Invalid. Rerouting ...");
 		}
+		return acctHolder;
 	}
 
-public double getcAcctBalance() {
-	return cAcctBalance;
+public double getBalancesTotal() {
+	return balancesTotal;
 }
 
-public void setcAcctBalance(double cAcctBalance) {
-	this.cAcctBalance = cAcctBalance;
+public void setBalancesTotal(double balancesTotal) {
+	this.balancesTotal = balancesTotal;
 }
-
-public double getsAcctBalance() {
-	return sAcctBalance;
-}
-
-public void setsAcctBalance(double sAcctBalance) {
-	this.sAcctBalance = sAcctBalance;
-}
-
-	
 	
 	}
 	
