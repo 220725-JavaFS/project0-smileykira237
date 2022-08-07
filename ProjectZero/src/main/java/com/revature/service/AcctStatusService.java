@@ -10,13 +10,13 @@ public class AcctStatusService {
 	private Scanner scanner = new Scanner(System.in);
 	
 	public AccountHolder statChecking(AccountHolder acctHolder) {
-		System.out.println(acctHolder.getcAcctBalance());
+		System.out.println("\nChecking Account Balance: $" + acctHolder.getcAcctBalance() + "0");
 		
 		return acctHolder;
 	}
 	
 public AccountHolder statSavings(AccountHolder acctHolder) {
-	System.out.println(acctHolder.getcAcctBalance());
+	System.out.println("\nSavings Account Balance: $" + acctHolder.getsAcctBalance() + "0");
 	
 		return acctHolder;
 	}	

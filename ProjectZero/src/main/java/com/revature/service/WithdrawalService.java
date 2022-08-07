@@ -8,12 +8,11 @@ import com.revature.models.AccountHolder;
 public class WithdrawalService {
 
 	private Scanner scanner = new Scanner(System.in);
-	private AccountHolder acctHolder;
 	
 	public AccountHolder withdrawalChecking(AccountHolder acctHolder) {
 	
 		System.out.println("\nHow much would you like to withdraw: ");
-		System.out.println(acctHolder.getcAcctBalance());
+		
 		try {
 		String cWithdrawal = scanner.next().trim();
 		double withdrawal = Double.valueOf(cWithdrawal);
@@ -49,7 +48,6 @@ public class WithdrawalService {
 	public AccountHolder withdrawalSavings(AccountHolder acctHolder) {
 		
 		System.out.println("\nHow much would you like to withdraw: ");
-		System.out.println(acctHolder.getsAcctBalance());
 		
 		try {
 		String sWithdrawal = scanner.next().trim();
