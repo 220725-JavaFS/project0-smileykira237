@@ -10,6 +10,25 @@ public class AccountsController {
 	private Scanner scanner = new Scanner(System.in);
 	private AccountsServices acctsServ = new AccountsServices(); 
 	
+public AccountHolder openNewAcct(AccountHolder acctHolder) {
+		System.out.println("\nNew Account Hub\n" + "\nAlright, I'll need a bit more information from you first. "
+				+ "What type of account would you like to open?");
+		
+		System.out.println("\n1) Checking Account" + "\n2) Savings Account");
+		
+		String selection = scanner.next().trim();
+		
+		switch (selection) {
+
+		case "1": acctHolder = acctsServ.openAcctChecking(acctHolder);
+			break;
+		case "2": acctHolder = acctsServ.openAcctSavings(acctHolder);
+			break;
+		default: System.out.println("\nError: Selection Invalid. Rerouting ...");
+		}
+		return acctHolder;
+	}
+	
 public AccountHolder AcctStatus(AccountHolder acctHolder) {
 
 		

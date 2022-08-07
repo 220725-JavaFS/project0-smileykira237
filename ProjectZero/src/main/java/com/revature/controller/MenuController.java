@@ -9,7 +9,6 @@ public class MenuController {
 	private AccountHolder acctHolder = new AccountHolder();
 	private RegistrationController rCont = new RegistrationController();
 	private SignInController sCont = new SignInController();
-	private OpenAcctController oCont = new OpenAcctController();
 	private AccountsController aCont = new AccountsController();
 	private Scanner scanner = new Scanner(System.in);
 	
@@ -41,7 +40,7 @@ public class MenuController {
 		 
 		 switch(nextSelection) {
 
-		 case "1": acctHolder = oCont.openNewAcct(acctHolder);
+		 case "1": acctHolder = aCont.openNewAcct(acctHolder);
 		 	 break;
 		 case "2": acctHolder = aCont.AcctStatus(acctHolder);
 			 break;
