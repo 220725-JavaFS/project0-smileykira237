@@ -5,25 +5,28 @@ import java.util.Objects;
 // CAN **VIEW** ALL CUSTOMER INFORMATION AND APPROVE OR DENY OPEN APPLICATIONS FOR NEW ACCOUNTS
 public class BankEmployee {
 	
-	private String name;
 	private int employeeID;
+	private String firstName;
+	private String lastName;
+	private String accessCode;
 	
-	public BankEmployee(String name, int employeeID) {
+	public BankEmployee(int employeeID, String firstName, String lastName, String accessCode) {
 		super();
-		this.name = name;
 		this.employeeID = employeeID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.accessCode = accessCode;
+	}
+
+	public BankEmployee(String firstName, String lastName, String accessCode) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.accessCode = accessCode;
 	}
 
 	public BankEmployee() {
 		super();
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public int getEmployeeID() {
@@ -34,9 +37,33 @@ public class BankEmployee {
 		this.employeeID = employeeID;
 	}
 
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getAccessCode() {
+		return accessCode;
+	}
+
+	public void setAccessCode(String accessCode) {
+		this.accessCode = accessCode;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(employeeID, name);
+		return Objects.hash(accessCode, employeeID, firstName, lastName);
 	}
 
 	@Override
@@ -48,12 +75,14 @@ public class BankEmployee {
 		if (getClass() != obj.getClass())
 			return false;
 		BankEmployee other = (BankEmployee) obj;
-		return employeeID == other.employeeID && Objects.equals(name, other.name);
+		return Objects.equals(accessCode, other.accessCode) && employeeID == other.employeeID
+				&& Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName);
 	}
 
 	@Override
 	public String toString() {
-		return "BankEmployee [name=" + name + ", employeeID=" + employeeID + "]";
+		return "BankEmployee [employeeID=" + employeeID + ", firstName=" + firstName + ", lastName=" + lastName
+				+ ", accessCode=" + accessCode + "]";
 	}
 
 }
