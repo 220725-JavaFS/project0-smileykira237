@@ -3,12 +3,11 @@ package com.revature.controller;
 import java.util.*;
 
 import com.revature.models.AccountHolder;
+import com.revature.service.AccountsServices;
 
 public class MenuController {
 	
 	private AccountHolder acctHolder = new AccountHolder();
-	private RegistrationController rCont = new RegistrationController();
-	private SignInController sCont = new SignInController();
 	private AccountsController aCont = new AccountsController();
 	private Scanner scanner = new Scanner(System.in);
 	
@@ -20,10 +19,10 @@ public class MenuController {
 		String selection = scanner.next().trim();
 		
 		switch (selection){
-		    case "1": rCont.register();
-		sCont.signIn();
+		    case "1": acctHolder = aCont.register(acctHolder);
+		      		  aCont.signIn(acctHolder);
 				break;
-			case "2": sCont.signIn();
+			case "2": acctHolder = aCont.signIn(acctHolder);
 				break;
 			case "3": System.out.println("Now Exiting ...");
 				scanner.close();

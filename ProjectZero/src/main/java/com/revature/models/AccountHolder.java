@@ -15,12 +15,13 @@ public class AccountHolder {
 	private String city;
 	private String state;
 	private int zip;
-	private boolean active;
+	private boolean checkingAccount;
+	private boolean savingsAccount;
 	private double cAcctBalance = 5.00;
 	private double sAcctBalance = 5.00;
 
 	public AccountHolder(String userName, String userPassword, String firstName, String lastName, String email,
-			long phoneNumber, String strNumber, String strName, String city, String state, int zip, boolean active,
+			long phoneNumber, String strNumber, String strName, String city, String state, int zip, boolean checkingAccount, boolean savingsAccount,
 			double cAcctBalance, double sAcctBalance) {
 		super();
 		this.userName = userName;
@@ -34,13 +35,14 @@ public class AccountHolder {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.active = active;
+		this.checkingAccount = checkingAccount;
+		this.savingsAccount = savingsAccount;
 		this.cAcctBalance = cAcctBalance;
 		this.sAcctBalance = sAcctBalance;
 	}
 
 	public AccountHolder(String userName, String userPassword, String firstName, String lastName, String email,
-			long phoneNumber, String strNumber, String strName, String city, String state, int zip, boolean active) {
+			long phoneNumber, String strNumber, String strName, String city, String state, int zip, boolean checkingAccount, boolean savingsAccount) {
 		super();
 		this.userName = userName;
 		this.userPassword = userPassword;
@@ -53,7 +55,8 @@ public class AccountHolder {
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
-		this.active = active;
+		this.checkingAccount = checkingAccount;
+		this.savingsAccount = savingsAccount;
 	}
 
 	public AccountHolder() {
@@ -148,12 +151,20 @@ public class AccountHolder {
 		this.zip = zip;
 	}
 
-	public boolean isActive() {
-		return active;
+	public boolean isCheckingAccount() {
+		return checkingAccount;
 	}
 
-	public void setActive(boolean active) {
-		this.active = active;
+	public void setCheckingAccount(boolean checkingAccount) {
+		this.checkingAccount = checkingAccount;
+	}
+
+	public boolean isSavingsAccount() {
+		return savingsAccount;
+	}
+
+	public void setSavingsAccount(boolean savingsAccount) {
+		this.savingsAccount = savingsAccount;
 	}
 
 	public double getcAcctBalance() {
@@ -174,8 +185,8 @@ public class AccountHolder {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(active, cAcctBalance, city, email, firstName, lastName, phoneNumber, sAcctBalance, state,
-				strName, strNumber, userName, userPassword, zip);
+		return Objects.hash(cAcctBalance, checkingAccount, city, email, firstName, lastName, phoneNumber, sAcctBalance,
+				savingsAccount, state, strName, strNumber, userName, userPassword, zip);
 	}
 
 	@Override
@@ -187,15 +198,15 @@ public class AccountHolder {
 		if (getClass() != obj.getClass())
 			return false;
 		AccountHolder other = (AccountHolder) obj;
-		return active == other.active
-				&& Double.doubleToLongBits(cAcctBalance) == Double.doubleToLongBits(other.cAcctBalance)
-				&& Objects.equals(city, other.city) && Objects.equals(email, other.email)
-				&& Objects.equals(firstName, other.firstName) && Objects.equals(lastName, other.lastName)
-				&& phoneNumber == other.phoneNumber
+		return Double.doubleToLongBits(cAcctBalance) == Double.doubleToLongBits(other.cAcctBalance)
+				&& checkingAccount == other.checkingAccount && Objects.equals(city, other.city)
+				&& Objects.equals(email, other.email) && Objects.equals(firstName, other.firstName)
+				&& Objects.equals(lastName, other.lastName) && phoneNumber == other.phoneNumber
 				&& Double.doubleToLongBits(sAcctBalance) == Double.doubleToLongBits(other.sAcctBalance)
-				&& Objects.equals(state, other.state) && Objects.equals(strName, other.strName)
-				&& Objects.equals(strNumber, other.strNumber) && Objects.equals(userName, other.userName)
-				&& Objects.equals(userPassword, other.userPassword) && zip == other.zip;
+				&& savingsAccount == other.savingsAccount && Objects.equals(state, other.state)
+				&& Objects.equals(strName, other.strName) && Objects.equals(strNumber, other.strNumber)
+				&& Objects.equals(userName, other.userName) && Objects.equals(userPassword, other.userPassword)
+				&& zip == other.zip;
 	}
 
 	@Override
@@ -203,7 +214,8 @@ public class AccountHolder {
 		return "AccountHolder [userName=" + userName + ", userPassword=" + userPassword + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", strNumber="
 				+ strNumber + ", strName=" + strName + ", city=" + city + ", state=" + state + ", zip=" + zip
-				+ ", active=" + active + ", cAcctBalance=" + cAcctBalance + ", sAcctBalance=" + sAcctBalance + "]";
+				+ ", checkingAccount=" + checkingAccount + ", savingsAccount=" + savingsAccount + ", cAcctBalance="
+				+ cAcctBalance + ", sAcctBalance=" + sAcctBalance + "]";
 	}
 
 }

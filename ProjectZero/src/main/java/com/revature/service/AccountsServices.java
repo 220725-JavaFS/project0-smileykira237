@@ -1,40 +1,59 @@
 package com.revature.service;
 
+import java.util.List;
 import java.util.Scanner;
 
+import com.revature.daos.CustomerDAO;
+import com.revature.daos.CustomerDAOImpl;
 import com.revature.models.AccountHolder;
 
 public class AccountsServices {
 	
+	private CustomerDAO customerDAO = new CustomerDAOImpl();
 	private Scanner scanner = new Scanner(System.in);
 	private boolean hasDebitCard;
 	
 	public AccountHolder openAcctChecking(AccountHolder acctHolder) {
 		
-		hasDebitCard = true;
+		acctHolder.getUserName();
+		acctHolder.getUserPassword();
+		acctHolder.getFirstName();
+		acctHolder.getLastName();
 		
 		System.out.println("\nPlease fill in your contact information below:\n");
 		
 		System.out.println("Email:");
-		String emailAddress = scanner.nextLine().trim();
+		acctHolder.setEmail(scanner.nextLine().trim());
 		//valid email checker
-		while (!emailAddress.contains("@") || !emailAddress.contains(".com")) {
-			System.out.println("\nEmail address invalid. Please try again.\n" + "\nEmail:\n");
-			emailAddress = scanner.nextLine().trim();
+		while (!acctHolder.getEmail().contains("@") || !acctHolder.getEmail().contains(".com")) {
+			System.out.println("\nEmail address invalid. Please try again.\n" + "\nEmail:");
+			acctHolder.setEmail(scanner.nextLine().trim());
 		}
 		
-		System.out.println("\nPhysical Address:");
-		String address = scanner.nextLine().trim();	
+		System.out.println("\nWe will also need your current address." + "\nStreet number: ");
+		acctHolder.setStrNumber(scanner.nextLine().trim());
+		
+		System.out.println("\nStreet name: ");
+		acctHolder.setStrName(scanner.nextLine().trim());
+		
+		System.out.println("\nCity: ");
+		acctHolder.setCity(scanner.nextLine().trim());
+		
+		System.out.println("\nState: ");
+		acctHolder.setState(scanner.nextLine().trim());
+		
+		System.out.println("\nZip: ");
+		acctHolder.setZip(Integer.parseInt(scanner.nextLine().trim()));
 		
 		System.out.println("\nPrimary phone number:");
-		long phoneNumber = scanner.nextLong();
+		acctHolder.setPhoneNumber(Long.parseLong(scanner.nextLine().trim()));
 		//valid phone checker
-		while (phoneNumber <= 0000000000L || phoneNumber >= 10000000000L) {
+		while (acctHolder.getPhoneNumber() <= 0000000000L || acctHolder.getPhoneNumber() >= 10000000000L) {
 			System.out.println("\nPhone number invalid. Please enter your 10-digit phone number, starting with"
 					+ "the area code:");
-			phoneNumber = scanner.nextLong();
+			acctHolder.setPhoneNumber(Long.parseLong(scanner.nextLine().trim()));
 		}
-
+		
 		System.out.println("\nThere is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
 		System.out.println("\n1) Yes" + "\n2) No");
 		
@@ -42,8 +61,12 @@ public class AccountsServices {
 		
 		switch (selection) {
 		case "1": System.out.println("Thank you, your account information is as follows:\n");
-		System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-				+ phoneNumber + "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctHolder.getcAcctBalance() + "0");
+		System.out.println("Email: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+		+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber() 
+		+ "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctHolder.getcAcctBalance() + "0");
+		hasDebitCard = true;
+		acctHolder.isSavingsAccount();
+		acctHolder.setCheckingAccount(true);
 		if(hasDebitCard == true) {
 			System.out.println("Your new debit card should be delivered to the address provided within"
 					+ "3-5 business days.");
@@ -53,57 +76,85 @@ public class AccountsServices {
 			break;
 		default: System.out.println("Error: Selection Invalid. Rerouting ...");
 		}
+		insertCustomer(acctHolder);
 		return acctHolder;
 	}
 
 	public AccountHolder openAcctSavings(AccountHolder acctHolder) {
 		
-		hasDebitCard = false;
+		acctHolder.getUserName();
+		acctHolder.getUserPassword();
+		acctHolder.getFirstName();
+		acctHolder.getLastName();
 		
 System.out.println("\nPlease fill in your contact information below:\n");
 		
-		System.out.println("Email:");
-		String emailAddress = scanner.nextLine().trim();
-		//valid email checker
-		while (!emailAddress.contains("@") || !emailAddress.contains(".com")) {
-			System.out.println("\nEmail address invalid. Please try again.\n" + "\nEmail:\n");
-			emailAddress = scanner.nextLine().trim();
-		}
-		
-		System.out.println("\nPhysical Address:");
-		String address = scanner.nextLine().trim();	
-		
-		System.out.println("\nPrimary phone number:");
-		long phoneNumber = scanner.nextLong();
-		//valid phone checker
-		while (phoneNumber <= 0000000000L || phoneNumber >= 10000000000L) {
-			System.out.println("\nPhone number invalid. Please enter your 10-digit phone number, starting with"
-					+ "the area code:");
-			phoneNumber = scanner.nextLong();
-		}
-		
-		System.out.println("\nThere is a $5.00 fee to open a new savings account. Do you still wish to proceed?");
-		System.out.println("\n1) Yes" + "\n2) No");
-		
-		String selection = scanner.next().trim();
-		
-		switch (selection) {
-		case "1": System.out.println("Thank you, your account information is as follows:\n");
-		System.out.println("Email: " + emailAddress + "\nAddress: " + address + "\nPhone Number: "
-				+ phoneNumber + "\nAccount Opened: Savings" + "\nAccount Balance: $" + acctHolder.getsAcctBalance() + "0");
-		if(hasDebitCard == true) {
-			System.out.println("Your new debit card should be delivered to the address provided within"
-					+ "3-5 business days.");
-		}
-			break;
-		case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
-			break;
-		default: System.out.println("\nError: Selection Invalid. Rerouting ...");
-		}
-		return acctHolder;
-	}
+System.out.println("\nPlease fill in your contact information below:\n");
+
+System.out.println("Email:");
+acctHolder.setEmail(scanner.nextLine().trim());
+//valid email checker
+while (!acctHolder.getEmail().contains("@") || !acctHolder.getEmail().contains(".com")) {
+	System.out.println("\nEmail address invalid. Please try again.\n" + "\nEmail:");
+	acctHolder.setEmail(scanner.nextLine().trim());
+}
+
+System.out.println("\nWe will also need your current address." + "\nStreet number: ");
+acctHolder.setStrNumber(scanner.nextLine().trim());
+
+System.out.println("\nStreet name: ");
+acctHolder.setStrName(scanner.nextLine().trim());
+
+System.out.println("\nCity: ");
+acctHolder.setCity(scanner.nextLine().trim());
+
+System.out.println("\nState: ");
+acctHolder.setState(scanner.nextLine().trim());
+
+System.out.println("\nZip: ");
+acctHolder.setZip(Integer.parseInt(scanner.nextLine()));
+
+System.out.println("\nPrimary phone number:");
+acctHolder.setPhoneNumber(Long.parseLong(scanner.nextLine()));
+long answer = acctHolder.getPhoneNumber();
+//valid phone checker
+while (answer <= 0000000000L || answer >= 10000000000L) {
+	System.out.println("\nPhone number invalid. Please enter your 10-digit phone number, starting with"
+			+ "the area code:");
+	acctHolder.setPhoneNumber(Long.parseLong(scanner.nextLine()));
+}
+
+System.out.println("\nThere is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
+System.out.println("\n1) Yes" + "\n2) No");
+
+String selection = scanner.next().trim();
+
+switch (selection) {
+case "1": System.out.println("Thank you, your account information is as follows:\n");
+System.out.println("Email: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
++ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber() 
++ "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctHolder.getsAcctBalance() + "0");
+hasDebitCard = true;
+acctHolder.isCheckingAccount();
+acctHolder.setSavingsAccount(true);
+if(hasDebitCard == false) {
+	System.out.println("Your new debit card should be delivered to the address provided within"
+			+ "3-5 business days.");
+}
+	break;
+case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
+	break;
+default: System.out.println("Error: Selection Invalid. Rerouting ...");
+}
+insertCustomer(acctHolder);
+return acctHolder;
+}
 
 	public AccountHolder acctStatus(AccountHolder acctHolder) {
+		System.out.println("Your account information is as follows:\n");
+		System.out.println("Account holder: " + acctHolder.getFirstName() + " " + acctHolder.getLastName() + "\nUsername: " + acctHolder.getUserName()
+		+ "\nEmail: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+		+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber());
 		System.out.println("Checking Account Balance: $" + acctHolder.getcAcctBalance() + "0");
 		System.out.println("Savings Account Balance: $" + acctHolder.getsAcctBalance() + "0");
 		
@@ -314,4 +365,16 @@ System.out.println("\nPlease fill in your contact information below:\n");
 		return acctHolder;
 }
 	
+	public AccountHolder getAccountHolderByUsername(String username) {
+		return customerDAO.getAccountHolderByUsername(username);
+	}
+
+	public List<AccountHolder> getAllAccountHolders(){
+		return customerDAO.getAllAccountHolders();
+	}
+	
+	public void insertCustomer(AccountHolder acctHolder) {
+		customerDAO.insertCustomer(acctHolder);
+	}
+
 }
