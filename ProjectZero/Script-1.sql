@@ -34,11 +34,8 @@ last_name varchar(30),
 access_code varchar(30) not null
 );
 
-drop table if exists customers cascade;
 drop table if exists accounts cascade;
 
-insert into accounts(active,checking_account,savings_account) values 
-(true,true,false);
 
 insert into customers(username,user_password,first_name,last_name,email,phone_number,str_number,str_name,city,state,zip,checking_account, savings_account) values 
 ('test123','test321','test first','test last','test@email.com',8001001000,'01','test dr.','test city','VA', 11111,true,true);
