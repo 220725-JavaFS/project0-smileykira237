@@ -5,12 +5,12 @@ import java.util.Objects;
 //CAN VIEW AND EDIT ALL ACCOUNTS
 public class BankAdmin {
 	
-	private int adminID;
-	private String firstName;
-	private String lastName;
-	private String accessCode;
+	private String adminID = "janedo33";
+	private String firstName = "Jane";
+	private String lastName = "Doe";
+	private String accessCode = "admin1";
 	
-	public BankAdmin(int adminID, String firstName, String lastName, String accessCode) {
+	public BankAdmin(String adminID, String firstName, String lastName, String accessCode) {
 		super();
 		this.adminID = adminID;
 		this.firstName = firstName;
@@ -29,11 +29,11 @@ public class BankAdmin {
 		super();
 	}
 
-	public int getAdminID() {
+	public String getAdminID() {
 		return adminID;
 	}
 
-	public void setAdminID(int adminID) {
+	public void setAdminID(String adminID) {
 		this.adminID = adminID;
 	}
 

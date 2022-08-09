@@ -5,12 +5,12 @@ import java.util.Objects;
 // CAN **VIEW** ALL CUSTOMER INFORMATION AND APPROVE OR DENY OPEN APPLICATIONS FOR NEW ACCOUNTS
 public class BankEmployee {
 	
-	private int employeeID;
-	private String firstName;
-	private String lastName;
-	private String accessCode;
+	private String employeeID = "jonnyd44";
+	private String firstName = "John";
+	private String lastName = "Doe";
+	private String accessCode = "employee1";
 	
-	public BankEmployee(int employeeID, String firstName, String lastName, String accessCode) {
+	public BankEmployee(String employeeID, String firstName, String lastName, String accessCode) {
 		super();
 		this.employeeID = employeeID;
 		this.firstName = firstName;
@@ -29,11 +29,11 @@ public class BankEmployee {
 		super();
 	}
 
-	public int getEmployeeID() {
+	public String getEmployeeID() {
 		return employeeID;
 	}
 
-	public void setEmployeeID(int employeeID) {
+	public void setEmployeeID(String employeeID) {
 		this.employeeID = employeeID;
 	}
 

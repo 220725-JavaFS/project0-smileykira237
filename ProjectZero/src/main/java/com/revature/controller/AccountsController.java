@@ -2,13 +2,17 @@ package com.revature.controller;
 
 import java.util.*;
 
+import com.revature.daos.CustomerDAO;
+import com.revature.daos.CustomerDAOImpl;
 import com.revature.models.AccountHolder;
+import com.revature.models.BankEmployee;
 import com.revature.service.AccountsServices;
 
 public class AccountsController {
 
 	private Scanner scanner = new Scanner(System.in);
 	private AccountsServices acctsServ = new AccountsServices(); 
+	private CustomerDAO cDAO = new CustomerDAOImpl();
 	
 public AccountHolder register(AccountHolder acctHolder) {
 		
@@ -58,6 +62,57 @@ public AccountHolder signIn(AccountHolder acctHolder) {
 	 System.out.println("\nWelcome, " + acctHolder.getFirstName());
 	 
 	 return acctHolder;
+}
+
+public BankEmployee employeeMenu(BankEmployee employee) {
+	System.out.println("\nEmployee Hub\n" + "\n" + "Please enter employee ID: ");
+	 String answer = scanner.nextLine().trim();
+	 
+	 //checker for valid employeeID
+	 while(!employee.getEmployeeID().equalsIgnoreCase(answer)) {
+		 System.out.println("\nError: Employee ID does not exist. Please try again: ");
+		 answer = scanner.nextLine().trim();
+	 }
+	 
+	 System.out.println("\nThank you, " + employee.getEmployeeID() + ". Enter access code: ");
+	 answer = scanner.nextLine().trim();
+	 
+	 //check for valid password
+	 while(!employee.getAccessCode().equals(answer)) {
+		 System.out.println("\nError: access code incorrect. Please try again: ");
+		 answer = scanner.nextLine().trim();
+	 }
+	 System.out.println("\nWelcome, " + employee.getFirstName());
+	 
+	 while(answer.contentEquals(answer)) {
+		 System.out.println("\nEmployee Transaction Menu\n");
+		System.out.println("Please choose from the following menu options: ");
+		System.out.println("1) View account holder information \n" + "2) Approve/deny savings account application\n" + 
+	    "3) Approve/deny checking account application\n" + "4) Exit");
+		answer = scanner.next().trim();
+		
+		switch (answer){
+		    case "1": System.out.println("\nPlease enter the username of the customer whose information you would like to view:");
+		    answer = scanner.nextLine().trim();
+		    answer = scanner.nextLine().trim();
+		    
+		    AccountHolder acctHolder = cDAO.getAccountHolderByUsername(answer);
+		    System.out.println("\n" + acctHolder);
+				break;
+			case "2": 
+				break;
+			case "3": 
+				break;
+			case "4": System.out.println("Now Exiting ...");
+				scanner.close();
+				return null;
+			default: System.out.println("Error: Selection Invalid");
+			scanner.close();
+				return null;
+	}
+}
+
+	 return employee;
 }
 
 public AccountHolder openNewAcct(AccountHolder acctHolder) {
