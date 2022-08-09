@@ -34,7 +34,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 	@Override
 	public List<AccountHolder> getAllAccountHolders() {
 		try(Connection conn = ConnectionUtility.getConnection()){
-			String sql = "SELECT * FROM avengers LEFT JOIN homes ON homes.home_name = avengers.home_name;";
+			String sql = "SELECT * FROM customers;";
 			Statement statement = conn.createStatement();
 			ResultSet result = statement.executeQuery(sql);
 			
@@ -73,11 +73,11 @@ public class CustomerDAOImpl implements CustomerDAO{
 	public void insertCustomer(AccountHolder acctHolder) {
 		try(Connection conn = ConnectionUtility.getConnection()){
 			String sql = "INSERT INTO customers (username, user_password, first_name, last_name, email, phone_number, str_number, "
-					+ "str_name, city, state, zip, checking_account, savings_account" + "	VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+					+ "str_name, city, state, zip, checking_account, savings_account)" + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			
 			PreparedStatement statement = conn.prepareStatement(sql);
 			
-			int count = 0;
+			int count = 1;
 			statement.setString(count++, acctHolder.getUserName());
 			statement.setString(count++, acctHolder.getUserPassword());
 			statement.setString(count++, acctHolder.getFirstName());
