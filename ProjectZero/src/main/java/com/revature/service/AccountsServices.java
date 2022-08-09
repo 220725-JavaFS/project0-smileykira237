@@ -1,11 +1,15 @@
 package com.revature.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 import com.revature.daos.CustomerDAO;
 import com.revature.daos.CustomerDAOImpl;
 import com.revature.models.AccountHolder;
+import com.revature.utilities.ConnectionUtility;
 
 public class AccountsServices {
 	
@@ -14,6 +18,42 @@ public class AccountsServices {
 	private boolean hasDebitCard;
 	
 	public AccountHolder openAcctChecking(AccountHolder acctHolder) {
+		
+		if (acctHolder.isSavingsAccount()) {
+			try(Connection conn = ConnectionUtility.getConnection()){
+				String sql = "update customers set checking_account = true where username = '" + acctHolder.getUserName() + "';"; 
+				PreparedStatement statement = conn.prepareStatement(sql);
+
+				statement.execute();
+				
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			System.out.println("\nThere is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
+			System.out.println("\n1) Yes" + "\n2) No");
+			
+			String selection = scanner.next().trim();
+			
+			switch (selection) {
+			case "1": System.out.println("Thank you, your account information is as follows:\n");
+			System.out.println("Email: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+			+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber() 
+			+ "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctHolder.getcAcctBalance() + "0");
+			hasDebitCard = true;
+			acctHolder.isSavingsAccount();
+			acctHolder.setCheckingAccount(true);
+			if(hasDebitCard == true) {
+				System.out.println("Your new debit card should be delivered to the address provided within"
+						+ "3-5 business days.");
+			}
+				break;
+			case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
+				break;
+			default: System.out.println("Error: Selection Invalid. Rerouting ...");
+			}
+			return acctHolder;
+		}
 		
 		acctHolder.getUserName();
 		acctHolder.getUserPassword();
@@ -81,7 +121,41 @@ public class AccountsServices {
 	}
 
 	public AccountHolder openAcctSavings(AccountHolder acctHolder) {
-		
+		if (acctHolder.isCheckingAccount()) {
+			try(Connection conn = ConnectionUtility.getConnection()){
+				String sql = "update customers set savings_account = true where username = '" + acctHolder.getUserName() + "';"; 
+				PreparedStatement statement = conn.prepareStatement(sql);
+
+				statement.execute();
+				
+			}catch(SQLException e) {
+				e.printStackTrace();
+			}
+			System.out.println("\nThere is a $5.00 fee to open a new savings account. Do you still wish to proceed?");
+			System.out.println("\n1) Yes" + "\n2) No");
+
+			String selection = scanner.next().trim();
+
+			switch (selection) {
+			case "1": System.out.println("Thank you, your account information is as follows:\n");
+			System.out.println("Email: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+			+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber() 
+			+ "\nAccount Opened: Savings" + "\nAccount Balance: $" + acctHolder.getsAcctBalance() + "0");
+			hasDebitCard = true;
+			acctHolder.isCheckingAccount();
+			acctHolder.setSavingsAccount(true);
+			if(hasDebitCard == false) {
+				System.out.println("Your new debit card should be delivered to the address provided within"
+						+ "3-5 business days.");
+			}
+				break;
+			case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
+				break;
+			default: System.out.println("Error: Selection Invalid. Rerouting ...");
+			}
+			return acctHolder;
+		}
+			
 		acctHolder.getUserName();
 		acctHolder.getUserPassword();
 		acctHolder.getFirstName();
@@ -124,7 +198,7 @@ while (answer <= 0000000000L || answer >= 10000000000L) {
 	acctHolder.setPhoneNumber(Long.parseLong(scanner.nextLine()));
 }
 
-System.out.println("\nThere is a $5.00 fee to open a new checking account. Do you still wish to proceed?");
+System.out.println("\nThere is a $5.00 fee to open a new savings account. Do you still wish to proceed?");
 System.out.println("\n1) Yes" + "\n2) No");
 
 String selection = scanner.next().trim();
@@ -133,7 +207,7 @@ switch (selection) {
 case "1": System.out.println("Thank you, your account information is as follows:\n");
 System.out.println("Email: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
 + ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber() 
-+ "\nAccount Opened: Checking" + "\nAccount Balance: $" + acctHolder.getsAcctBalance() + "0");
++ "\nAccount Opened: Savings" + "\nAccount Balance: $" + acctHolder.getsAcctBalance() + "0");
 hasDebitCard = true;
 acctHolder.isCheckingAccount();
 acctHolder.setSavingsAccount(true);
@@ -151,6 +225,30 @@ return acctHolder;
 }
 
 	public AccountHolder acctStatus(AccountHolder acctHolder) {
+		
+if(acctHolder.isCheckingAccount() == false && acctHolder.isSavingsAccount() == false) {
+		System.out.println("Account holder: " + acctHolder.getFirstName() + " " + acctHolder.getLastName() + "\nUsername: " + acctHolder.getUserName()
+		+ "\nEmail: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+		+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber());
+		System.out.println("Checking Account Balance: You do not have a checking account");
+		System.out.println("Checking Account Balance: You do not have a savings account");
+	return acctHolder;
+		}else if(acctHolder.isSavingsAccount() == false) {
+			System.out.println("Account holder: " + acctHolder.getFirstName() + " " + acctHolder.getLastName() + "\nUsername: " + acctHolder.getUserName()
+			+ "\nEmail: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+			+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber());
+			System.out.println("Checking Account Balance: $" + acctHolder.getcAcctBalance() + "0");
+			System.out.println("Checking Account Balance: You do not have a savings account");
+			return acctHolder;
+				}else if(acctHolder.isCheckingAccount() == false) {
+					System.out.println("Account holder: " + acctHolder.getFirstName() + " " + acctHolder.getLastName() + "\nUsername: " + acctHolder.getUserName()
+					+ "\nEmail: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
+					+ ", " + acctHolder.getCity() + ", " + acctHolder.getState() + ", " + acctHolder.getZip() + "\nPhone Number: " + acctHolder.getPhoneNumber());
+					System.out.println("Checking Account Balance: You do not have a checking account");
+					System.out.println("Savings Account Balance: $" + acctHolder.getsAcctBalance() + "0");
+					return acctHolder;
+				}
+		
 		System.out.println("Your account information is as follows:\n");
 		System.out.println("Account holder: " + acctHolder.getFirstName() + " " + acctHolder.getLastName() + "\nUsername: " + acctHolder.getUserName()
 		+ "\nEmail: " + acctHolder.getEmail() + "\nHome address: " + acctHolder.getStrNumber() + " " + acctHolder.getStrName() 
@@ -163,6 +261,10 @@ return acctHolder;
 
 	public AccountHolder depositChecking(AccountHolder acctHolder) {
 		
+	if(acctHolder.isCheckingAccount() == false) {
+			System.out.println("\nYou do not have a checking account. Rerouting ...");
+						return acctHolder;
+					}
 		System.out.println("\nHow much would you like to deposit: ");
 		try {
 		String cDeposit = scanner.next().trim();
@@ -189,6 +291,10 @@ return acctHolder;
 	}
 
 	public AccountHolder depositSavings(AccountHolder acctHolder) {
+		if(acctHolder.isSavingsAccount() == false) {
+			System.out.println("\nYou do not have a savings account. Rerouting ...");
+						return acctHolder;
+					}
 		
 		System.out.println("\nHow much would you like to deposit: ");
 		try {
@@ -216,7 +322,10 @@ return acctHolder;
 }
 	
 	public AccountHolder withdrawalChecking(AccountHolder acctHolder) {
-		
+		if(acctHolder.isCheckingAccount() == false) {
+			System.out.println("\nYou do not have a checking account. Rerouting ...");
+						return acctHolder;
+					}
 		System.out.println("\nHow much would you like to withdraw: ");
 		
 		try {
@@ -252,7 +361,10 @@ return acctHolder;
 	}
 
 	public AccountHolder withdrawalSavings(AccountHolder acctHolder) {
-		
+		if(acctHolder.isSavingsAccount() == false) {
+			System.out.println("\nYou do not have a savings account. Rerouting ...");
+						return acctHolder;
+					}
 		System.out.println("\nHow much would you like to withdraw: ");
 		
 		try {
@@ -288,7 +400,10 @@ return acctHolder;
 }
 	
 	public AccountHolder tChecking(AccountHolder acctHolder) {
-		
+		if(acctHolder.isCheckingAccount() == false) {
+			System.out.println("\nYou do not have a checking account. Rerouting ...");
+						return acctHolder;
+					}
 		System.out.println("\nHow much would you like to transfer: ");
 		
 		try {
@@ -327,7 +442,10 @@ return acctHolder;
 }
 	
 	public AccountHolder tSavings(AccountHolder acctHolder) {
-		
+		if(acctHolder.isSavingsAccount() == false) {
+			System.out.println("\nYou do not have a savings account. Rerouting ...");
+						return acctHolder;
+					}
 		System.out.println("\nHow much would you like to transfer: ");
 		
 		try {
