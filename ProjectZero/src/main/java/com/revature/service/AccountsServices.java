@@ -81,6 +81,12 @@ public class AccountsServices {
 		
 		System.out.println("\nState: ");
 		acctHolder.setState(scanner.nextLine().trim());
+		//checker for valid state entry
+		while (acctHolder.getState().length() != 2) {
+			System.out.println("\nState entry invalid. Please make sure you are entering state abbreviations, "
+					+ "e.g. 'NY', and try again.\n" + "\nState:");
+			acctHolder.setState(scanner.nextLine().trim());
+		}
 		
 		System.out.println("\nZip: ");
 		acctHolder.setZip(Integer.parseInt(scanner.nextLine().trim()));
@@ -107,17 +113,17 @@ public class AccountsServices {
 		hasDebitCard = true;
 		acctHolder.isSavingsAccount();
 		acctHolder.setCheckingAccount(true);
+		insertCustomer(acctHolder);
 		if(hasDebitCard == true) {
 			System.out.println("Your new debit card should be delivered to the address provided within"
 					+ "3-5 business days.");
 		}
-			break;
+			return acctHolder;
 		case "2": System.out.println("\nI'm sorry, we cannot open an account for you at this time. Rerouting ...");
-			break;
+			return acctHolder;
 		default: System.out.println("Error: Selection Invalid. Rerouting ...");
+			return acctHolder;
 		}
-		insertCustomer(acctHolder);
-		return acctHolder;
 	}
 
 	public AccountHolder openAcctSavings(AccountHolder acctHolder) {
@@ -184,6 +190,12 @@ acctHolder.setCity(scanner.nextLine().trim());
 
 System.out.println("\nState: ");
 acctHolder.setState(scanner.nextLine().trim());
+//checker for valid state entry
+		while (acctHolder.getState().length() != 2) {
+			System.out.println("\nState entry invalid. Please make sure you are entering state abbreviations, "
+					+ "e.g. 'NY', and try again.\n" + "\nState:");
+			acctHolder.setState(scanner.nextLine().trim());
+		}
 
 System.out.println("\nZip: ");
 acctHolder.setZip(Integer.parseInt(scanner.nextLine()));

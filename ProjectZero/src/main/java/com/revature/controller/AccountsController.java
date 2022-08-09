@@ -6,6 +6,7 @@ import com.revature.daos.CustomerDAO;
 import com.revature.daos.CustomerDAOImpl;
 import com.revature.models.AccountHolder;
 import com.revature.models.BankEmployee;
+import com.revature.models.BankAdmin;
 import com.revature.service.AccountsServices;
 
 public class AccountsController {
@@ -42,26 +43,30 @@ public AccountHolder register(AccountHolder acctHolder) {
 	
 public AccountHolder signIn(AccountHolder acctHolder) {
 	 
+	try {
 	 System.out.println("\nSign-in Hub\n" + "\n" + "Please enter username: ");
 	 String answer = scanner.nextLine().trim();
 	 
-	 //checker for valid username
+	 //checker for valid user-name
 	 while(!acctHolder.getUserName().equalsIgnoreCase(answer)) {
 		 System.out.println("\nError: Username does not exist. Please try again: ");
 		 answer = scanner.nextLine().trim();
 	 }
-	 
-	 System.out.println("\nThank you, " + acctHolder.getUserName() + ". Enter password: ");
-	 answer = scanner.nextLine().trim();
-	 
-	 //check for valid password
-	 while(!acctHolder.getUserPassword().equals(answer)) {
-		 System.out.println("\nError: Password incorrect. Please try again: ");
+		 System.out.println("\nThank you, " + acctHolder.getUserName() + ". Enter password: ");
 		 answer = scanner.nextLine().trim();
-	 }
-	 System.out.println("\nWelcome, " + acctHolder.getFirstName());
-	 
-	 return acctHolder;
+		 
+		 //check for valid password
+		 while(!acctHolder.getUserPassword().equals(answer)) {
+			 System.out.println("\nError: Password incorrect. Please try again: ");
+			 answer = scanner.nextLine().trim();
+		 }
+		 System.out.println("\nWelcome, " + acctHolder.getFirstName());
+			return acctHolder;
+
+	 }catch(Exception e){
+		System.out.println("Error: " + e.getStackTrace() + "\nThis user does not exist ...");
+		return null;
+	}
 }
 
 public BankEmployee employeeMenu(BankEmployee employee) {
@@ -115,6 +120,68 @@ public BankEmployee employeeMenu(BankEmployee employee) {
 	 return employee;
 }
 
+public BankAdmin adminMenu(BankAdmin admin) {
+
+	System.out.println("\nAdministration Hub\n" + "\n" + "Please enter admin ID: ");
+	 String answer = scanner.nextLine().trim();
+	 
+	 //checker for valid employeeID
+	 while(!admin.getAdminID().equalsIgnoreCase(answer)) {
+		 System.out.println("\nError: Admin ID does not exist. Please try again: ");
+		 answer = scanner.nextLine().trim();
+	 }
+	 
+	 System.out.println("\nThank you, " + admin.getAdminID() + ". Enter access code: ");
+	 answer = scanner.nextLine().trim();
+	 
+	 //check for valid password
+	 while(!admin.getAccessCode().equals(answer)) {
+		 System.out.println("\nError: access code incorrect. Please try again: ");
+		 answer = scanner.nextLine().trim();
+	 }
+	 System.out.println("\nWelcome, " + admin.getFirstName());
+	 
+	 while(answer.contentEquals(answer)) {
+		 System.out.println("\nAdministrator Transaction Menu\n");
+		System.out.println("Please choose from the following menu options: ");
+		System.out.println("1) View account holder information \n" + "2) Approve/deny savings account application\n" + 
+	    "3) Approve/deny checking account application\n" + "4) Open New Customer Account\n" + "5) Update account holder information" 
+		+ "6) Deposit Into Customer Account\n" + "7) Withdrawal From Customer Account\n" + "8) Customer Account Transfer\n" + "9) Exit");
+		answer = scanner.next().trim();
+		
+		switch (answer){
+		    case "1": System.out.println("\nPlease enter the username of the customer whose information you would like to view:");
+		    answer = scanner.nextLine().trim();
+		    answer = scanner.nextLine().trim();
+		    
+		    AccountHolder acctHolder = cDAO.getAccountHolderByUsername(answer);
+		    System.out.println("\n" + acctHolder);
+				break;
+			case "2": 
+				break;
+			case "3":
+				break;
+			case "4": 
+				break;
+			case "5": 
+				break;
+			case "6": 
+				break;
+			case "7": 
+				break;
+			case "8": 
+				break;
+			case "9": System.out.println("Now Exiting ...");
+				scanner.close();
+				return null;
+			default: System.out.println("Error: Selection Invalid");
+			scanner.close();
+				return null;
+	}
+	 }
+	return admin;
+}
+
 public AccountHolder openNewAcct(AccountHolder acctHolder) {
 		System.out.println("\nNew Account Hub\n" + "\nAlright, I'll need a bit more information from you first. "
 				+ "What type of account would you like to open?");
@@ -126,7 +193,7 @@ public AccountHolder openNewAcct(AccountHolder acctHolder) {
 		switch (selection) {
 
 		case "1": acctHolder = acctsServ.openAcctChecking(acctHolder);
-			break;
+			return acctHolder;
 		case "2": acctHolder = acctsServ.openAcctSavings(acctHolder);
 			break;
 		default: System.out.println("\nError: Selection Invalid. Rerouting ...");
