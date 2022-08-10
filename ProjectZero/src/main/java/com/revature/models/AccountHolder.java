@@ -59,6 +59,14 @@ public class AccountHolder {
 		this.savingsAccount = savingsAccount;
 	}
 
+	
+	public AccountHolder(String firstName, String lastName, boolean checkingAccount) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.checkingAccount = checkingAccount;
+	}
+	
 	public AccountHolder() {
 		super();
 	}

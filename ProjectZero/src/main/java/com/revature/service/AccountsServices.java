@@ -2,13 +2,16 @@ package com.revature.service;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.Scanner;
 
 import com.revature.daos.CustomerDAO;
 import com.revature.daos.CustomerDAOImpl;
 import com.revature.models.AccountHolder;
+import com.revature.models.BankEmployee;
 import com.revature.utilities.ConnectionUtility;
 
 public class AccountsServices {
@@ -494,6 +497,428 @@ if(acctHolder.isCheckingAccount() == false && acctHolder.isSavingsAccount() == f
 		}
 		return acctHolder;
 }
+	
+	public BankEmployee checkingApps(BankEmployee employee) {
+		
+		System.out.println("Which would you like to do?" + "\n1) Approve an application" + "\n2) Deny an application");
+		String selection = scanner.nextLine().trim();
+		
+		switch(selection) {
+		case "1": try(Connection conn = ConnectionUtility.getConnection()){
+			String sql = "select first_name, last_name,checking_account from customers where checking_account = true;";
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			
+			System.out.println("\nBelow is a list of checking accounts recently applied for:");
+			
+			if(result.next()) {//resultSets have cursors. .next(); is called to move cursor to next group of values
+						String one = result.getString("first_name");
+						String two = result.getString("last_name");
+						Boolean three = result.getBoolean("checking_account");
+						String firstRecord = "First Name: " + one + "    Last Name: " + two + "    Has Checking: " + three; 
+						System.out.println(firstRecord);
+
+						String four = null, five = null;
+						boolean six = false;
+						if (result.next() != false) {
+						four = result.getString("first_name");
+						five = result.getString("last_name");
+						six = result.getBoolean("checking_account"); 
+						String secondRecord = "First Name: " + four + "    Last Name: " + five + "    Has Checking: " + six;
+						System.out.println(secondRecord);
+						}
+						
+						String seven = null, eight = null;
+						boolean nine = false;
+						if (result.next() != false) {
+						 seven = result.getString("first_name");
+						 eight = result.getString("last_name");
+						 nine = result.getBoolean("checking_account");
+						 String thirdRecord = "First Name: " + seven + "    Last Name: " + eight + "    Has Checking: " + nine;
+						System.out.println(thirdRecord);
+						}
+						
+						System.out.println("\nPlease choose the applicant you would like to approve: ");
+						if (one != null) {
+							System.out.println("1) " + one + " " + two);
+						} else {System.out.println("");}
+						if (four != null) {
+							System.out.println("2) " + four + " " + five);
+						} else {System.out.println("");}
+						if (seven != null) {
+							System.out.println("3) " + seven + " " + eight);
+						} else{System.out.println("");}
+						selection = scanner.nextLine().trim();
+						
+						switch(selection) {
+						case "1": if (one != null) {
+							System.out.println("Account Appoved! This customer can now fully utilize their new checking account.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set checking_account = true where first_name = '" + one + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+						case "2":  if (four != null) {
+							System.out.println("Account Appoved! This customer can now fully utilize their new checking account.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set checking_account = true where first_name = '" + four + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+						case "3": if (seven != null) {
+							System.out.println("Account Appoved! This customer can now fully utilize their new checking account.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set checking_account = true where first_name = '" + seven + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+							default: System.out.println("Selection invalid. Rerouting ...");
+								break;
+						}
+				return employee;
+				}
+			}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			break;
+		case "2": try(Connection conn = ConnectionUtility.getConnection()){
+			String sql = "select first_name, last_name,checking_account from customers where checking_account = true;";
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			
+			System.out.println("\nBelow is a list of checking accounts recently applied for:");
+			
+			if(result.next()) {//resultSets have cursors. .next(); is called to move cursor to next group of values
+						String one = result.getString("first_name");
+						String two = result.getString("last_name");
+						Boolean three = result.getBoolean("checking_account");
+						String firstRecord = "First Name: " + one + "    Last Name: " + two + "    Has Checking: " + three; 
+						System.out.println(firstRecord);
+
+						String four = null, five = null;
+						boolean six = false;
+						if (result.next() != false) {
+						four = result.getString("first_name");
+						five = result.getString("last_name");
+						six = result.getBoolean("checking_account"); 
+						String secondRecord = "First Name: " + four + "    Last Name: " + five + "    Has Checking: " + six;
+						System.out.println(secondRecord);
+						}
+						
+						String seven = null, eight = null;
+						boolean nine = false;
+						if (result.next() != false) {
+						 seven = result.getString("first_name");
+						 eight = result.getString("last_name");
+						 nine = result.getBoolean("checking_account");
+						 String thirdRecord = "First Name: " + seven + "    Last Name: " + eight + "    Has Checking: " + nine;
+						System.out.println(thirdRecord);
+						}
+						
+						System.out.println("\nPlease choose the applicant you would like to deny: ");
+						if (one != null) {
+							System.out.println("1) " + one + " " + two);
+						} else {System.out.println("");}
+						if (four != null) {
+							System.out.println("2) " + four + " " + five);
+						} else {System.out.println("");}
+						if (seven != null) {
+							System.out.println("3) " + seven + " " + eight);
+						} else{System.out.println("");}
+						selection = scanner.nextLine().trim();
+						
+						switch(selection) {
+						case "1": if (one != null) {
+							System.out.println("\nAccount Denied! This customer can no longer utilize their checking account functionality.");
+							
+								try(Connection conn2 = ConnectionUtility.getConnection()){
+									sql = "update customers set checking_account = false where first_name = '" + one + "';"; 
+									PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+									statement2.execute();
+									
+								}catch(SQLException e) {
+									e.printStackTrace();
+								}
+							
+						} else{System.out.println("Empty record");}
+							break;
+						case "2":  if (four != null) {
+							System.out.println("Account Denied! This customer can no longer utilize their checking account functionality.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set checking_account = false where first_name = '" + four + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+						} else{System.out.println("Empty record");}
+							break;
+						case "3": if (seven != null) {
+							System.out.println("Account Denied! This customer can no longer utilize their checking account functionality.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set checking_account = false where first_name = '" + seven + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+							default: System.out.println("Selection invalid. Rerouting ...");
+								break;
+						}
+				return employee;
+				}
+			}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			break;
+		}
+		return employee;
+	}
+
+	public BankEmployee savingsApps(BankEmployee employee) {
+		
+		System.out.println("Which would you like to do?" + "\n1) Approve an application" + "\n2) Deny an application");
+		String selection = scanner.nextLine().trim();
+		
+		switch(selection) {
+		case "1": try(Connection conn = ConnectionUtility.getConnection()){
+			String sql = "select first_name, last_name,savings_account from customers where savings_account = true;";
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			
+			System.out.println("\nBelow is a list of savings accounts recently applied for:");
+			
+			if(result.next()) {//resultSets have cursors. .next(); is called to move cursor to next group of values
+						String one = result.getString("first_name");
+						String two = result.getString("last_name");
+						Boolean three = result.getBoolean("savings_account");
+						String firstRecord = "First Name: " + one + "    Last Name: " + two + "    Has Savings: " + three; 
+						System.out.println(firstRecord);
+
+						String four = null, five = null;
+						boolean six = false;
+						if (result.next() != false) {
+						four = result.getString("first_name");
+						five = result.getString("last_name");
+						six = result.getBoolean("savings_account"); 
+						String secondRecord = "First Name: " + four + "    Last Name: " + five + "    Has Savings: " + six;
+						System.out.println(secondRecord);
+						}
+						
+						String seven = null, eight = null;
+						boolean nine = false;
+						if (result.next() != false) {
+						 seven = result.getString("first_name");
+						 eight = result.getString("last_name");
+						 nine = result.getBoolean("savings_account");
+						 String thirdRecord = "First Name: " + seven + "    Last Name: " + eight + "    Has Savings: " + nine;
+						System.out.println(thirdRecord);
+						}
+						
+						System.out.println("\nPlease choose the applicant you would like to approve: ");
+						if (one != null) {
+							System.out.println("1) " + one + " " + two);
+						} else {System.out.println("");}
+						if (four != null) {
+							System.out.println("2) " + four + " " + five);
+						} else {System.out.println("");}
+						if (seven != null) {
+							System.out.println("3) " + seven + " " + eight);
+						} else{System.out.println("");}
+						selection = scanner.nextLine().trim();
+						
+						switch(selection) {
+						case "1": if (one != null) {
+							System.out.println("Account Appoved! This customer can now fully utilize their new savings account.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set savings_account = true where first_name = '" + one + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+						case "2":  if (four != null) {
+							System.out.println("Account Appoved! This customer can now fully utilize their new savings account.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set savings_account = true where first_name = '" + four + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+						case "3": if (seven != null) {
+							System.out.println("Account Appoved! This customer can now fully utilize their new savings account.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set savings_account = true where first_name = '" + seven + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+							default: System.out.println("Selection invalid. Rerouting ...");
+								break;
+						}
+				return employee;
+				}
+			}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			break;
+		case "2": try(Connection conn = ConnectionUtility.getConnection()){
+			String sql = "select first_name, last_name,savings_account from customers where savings_account = true;";
+			Statement statement = conn.createStatement();
+			ResultSet result = statement.executeQuery(sql);
+			
+			System.out.println("\nBelow is a list of savings accounts recently applied for:");
+			
+			if(result.next()) {//resultSets have cursors. .next(); is called to move cursor to next group of values
+						String one = result.getString("first_name");
+						String two = result.getString("last_name");
+						Boolean three = result.getBoolean("savings_account");
+						String firstRecord = "First Name: " + one + "    Last Name: " + two + "    Has Savings: " + three; 
+						System.out.println(firstRecord);
+
+						String four = null, five = null;
+						boolean six = false;
+						if (result.next() != false) {
+						four = result.getString("first_name");
+						five = result.getString("last_name");
+						six = result.getBoolean("savings_account"); 
+						String secondRecord = "First Name: " + four + "    Last Name: " + five + "    Has Savings: " + six;
+						System.out.println(secondRecord);
+						}
+						
+						String seven = null, eight = null;
+						boolean nine = false;
+						if (result.next() != false) {
+						 seven = result.getString("first_name");
+						 eight = result.getString("last_name");
+						 nine = result.getBoolean("savings_account");
+						 String thirdRecord = "First Name: " + seven + "    Last Name: " + eight + "    Has Savings: " + nine;
+						System.out.println(thirdRecord);
+						}
+						
+						System.out.println("\nPlease choose the applicant you would like to deny: ");
+						if (one != null) {
+							System.out.println("1) " + one + " " + two);
+						} else {System.out.println("");}
+						if (four != null) {
+							System.out.println("2) " + four + " " + five);
+						} else {System.out.println("");}
+						if (seven != null) {
+							System.out.println("3) " + seven + " " + eight);
+						} else{System.out.println("");}
+						selection = scanner.nextLine().trim();
+						
+						switch(selection) {
+						case "1": if (one != null) {
+							System.out.println("\nAccount Denied! This customer can no longer utilize their savings account functionality.");
+							
+								try(Connection conn2 = ConnectionUtility.getConnection()){
+									sql = "update customers set savings_account = false where first_name = '" + one + "';"; 
+									PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+									statement2.execute();
+									
+								}catch(SQLException e) {
+									e.printStackTrace();
+								}
+							
+						} else{System.out.println("Empty record");}
+							break;
+						case "2":  if (four != null) {
+							System.out.println("Account Denied! This customer can no longer utilize their savings account functionality.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set savings_account = false where first_name = '" + four + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+						} else{System.out.println("Empty record");}
+							break;
+						case "3": if (seven != null) {
+							System.out.println("Account Denied! This customer can no longer utilize their savings account functionality.");
+							
+							try(Connection conn2 = ConnectionUtility.getConnection()){
+								sql = "update customers set savings_account = false where first_name = '" + seven + "';"; 
+								PreparedStatement statement2 = conn2.prepareStatement(sql);
+
+								statement2.execute();
+								
+							}catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+						} else{System.out.println("Empty record");}
+							break;
+							default: System.out.println("Selection invalid. Rerouting ...");
+								break;
+						}
+				return employee;
+				}
+			}catch(SQLException e) {
+			e.printStackTrace();
+		}
+			break;
+		}
+		return employee;
+	}
 	
 	public AccountHolder getAccountHolderByUsername(String username) {
 		return customerDAO.getAccountHolderByUsername(username);

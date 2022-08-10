@@ -92,8 +92,8 @@ public BankEmployee employeeMenu(BankEmployee employee) {
 	 while(answer.contentEquals(answer)) {
 		 System.out.println("\nEmployee Transaction Menu\n");
 		System.out.println("Please choose from the following menu options: ");
-		System.out.println("1) View account holder information \n" + "2) Approve/deny savings account application\n" + 
-	    "3) Approve/deny checking account application\n" + "4) Exit");
+		System.out.println("1) View account holder information \n" + "2) Approve/deny checking account application\n" + 
+	    "3) Approve/deny savings account application\n" + "4) Exit");
 		answer = scanner.next().trim();
 		
 		switch (answer){
@@ -104,9 +104,9 @@ public BankEmployee employeeMenu(BankEmployee employee) {
 		    AccountHolder acctHolder = cDAO.getAccountHolderByUsername(answer);
 		    System.out.println("\n" + acctHolder);
 				break;
-			case "2": 
+			case "2": employee = acctsServ.checkingApps(employee);
 				break;
-			case "3": 
+			case "3": employee = acctsServ.savingsApps(employee);
 				break;
 			case "4": System.out.println("Now Exiting ...");
 				scanner.close();
