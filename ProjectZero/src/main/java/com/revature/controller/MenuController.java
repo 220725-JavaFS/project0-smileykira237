@@ -43,8 +43,8 @@ public class MenuController {
 		}
          do {
 		 System.out.println("\nTransaction Menu\n" + "\n" + "Please make a selection below:");
-		 System.out.println("1) Open New Account\n" + "2) Account Status\n" + "3) Deposit\n" + 
-		 "4) Withdrawal\n" + "5) Funds Transfer\n" + "6) Logout");
+		 System.out.println("1) Open New Account\n" + "2) Account Status\n" + "3) Update Account Info\n" + "4) Deposit\n" + 
+		 "5) Withdrawal\n" + "6) Funds Transfer\n" + "7) Logout");
 		 String nextSelection = scanner.next().trim();
 		 
 		 switch(nextSelection) {
@@ -53,13 +53,15 @@ public class MenuController {
 		 	 break;
 		 case "2": acctHolder = aCont.AcctStatus(acctHolder);
 			 break;
-		 case "3": acctHolder = aCont.AcctDeposit(acctHolder);
+		 case "3": acctHolder = aCont.acctUpdate(acctHolder);
 			 break;
-		 case "4": acctHolder = aCont.AcctWithdrawal(acctHolder);
+		 case "4": acctHolder = aCont.AcctDeposit(acctHolder);
 			 break;
-		 case "5": acctHolder = aCont.AcctTransfer(acctHolder);
+		 case "5": acctHolder = aCont.AcctWithdrawal(acctHolder);
 			 break;
-		 case "6": System.out.println("You've been logged out.");
+		 case "6": acctHolder = aCont.AcctTransfer(acctHolder);
+			 break;
+		 case "7": System.out.println("You've been logged out.");
 		 scanner.close();
 			 return false;
 		 default: System.out.println("\nError: Selection Invalid. Rerouting to main menu ... ");

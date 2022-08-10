@@ -144,8 +144,8 @@ public BankAdmin adminMenu(BankAdmin admin) {
 	 while(answer.contentEquals(answer)) {
 		 System.out.println("\nAdministrator Transaction Menu\n");
 		System.out.println("Please choose from the following menu options: ");
-		System.out.println("1) View account holder information \n" + "2) Approve/deny savings account application\n" + 
-	    "3) Approve/deny checking account application\n" + "4) Open New Customer Account\n" + "5) Update account holder information" 
+		System.out.println("1) View account holder information \n" + "2) Approve/deny checking account application\n" + 
+	    "3) Approve/deny savings account application\n" + "4) Open New Customer Account\n" + "5) Update account holder information\n" 
 		+ "6) Deposit Into Customer Account\n" + "7) Withdrawal From Customer Account\n" + "8) Customer Account Transfer\n" + "9) Exit");
 		answer = scanner.next().trim();
 		
@@ -157,26 +157,31 @@ public BankAdmin adminMenu(BankAdmin admin) {
 		    AccountHolder acctHolder = cDAO.getAccountHolderByUsername(answer);
 		    System.out.println("\n" + acctHolder);
 				break;
-			case "2": 
+			case "2": admin = acctsServ.checkingApps(admin);
 				break;
-			case "3":
+			case "3": admin = acctsServ.savingsApps(admin);
 				break;
-			case "4": 
+			case "4": AccountHolder aHolder =  new AccountHolder();
+					  openNewAcct(aHolder);
 				break;
-			case "5": 
+			case "5": AccountHolder aHolder2 =  new AccountHolder();
+					  acctUpdate(aHolder2);
 				break;
-			case "6": 
+			case "6": AccountHolder aHolder3 =  new AccountHolder();
+			  		  AcctDeposit(aHolder3);
 				break;
-			case "7": 
+			case "7": AccountHolder aHolder4 =  new AccountHolder();
+	  		  		  AcctWithdrawal(aHolder4);
 				break;
-			case "8": 
+			case "8": AccountHolder aHolder5 =  new AccountHolder();
+	  		  		  AcctDeposit(aHolder5);
 				break;
 			case "9": System.out.println("Now Exiting ...");
 				scanner.close();
-				return null;
+				return admin;
 			default: System.out.println("Error: Selection Invalid");
 			scanner.close();
-				return null;
+				return admin;
 	}
 	 }
 	return admin;
@@ -201,6 +206,14 @@ public AccountHolder openNewAcct(AccountHolder acctHolder) {
 		return acctHolder;
 	}
 	
+public AccountHolder acctUpdate(AccountHolder acctHolder) {
+	
+	System.out.println("\nUpdate Account\n");
+	
+	acctHolder = acctsServ.acctUpdater(acctHolder);
+	return acctHolder;
+}
+
 public AccountHolder AcctStatus(AccountHolder acctHolder) {
 
 		

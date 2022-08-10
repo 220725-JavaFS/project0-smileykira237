@@ -3,7 +3,7 @@ package com.revature.models;
 import java.util.Objects;
 
 //CAN VIEW AND EDIT ALL ACCOUNTS
-public class BankAdmin {
+public class BankAdmin{
 	
 	private String adminID = "janedo33";
 	private String firstName = "Jane";
